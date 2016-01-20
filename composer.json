@@ -1,0 +1,23 @@
+{
+  "name": "apollopy/flysystem-aliyun-oss",
+  "description": "",
+  "authors": [
+    {
+      "name": "ApolloPY",
+      "email": "ApolloPY@Gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.9",
+    "league/flysystem": "~1.0",
+    "aliyuncs/oss-sdk-php": "~2.0.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "ApolloPY\\Flysystem\\AliyunOss\\": "src/"
+    }
+  }
+}
