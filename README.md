@@ -42,3 +42,14 @@ change default to oss
 ```php
     'default' => 'oss'
 ```
+
+## Use
+
+see [Laravel wiki](https://laravel.com/docs/5.1/filesystem)
+
+## Plugins
+
+```php
+Storage::disk('oss')->putFile($path, '/local_file_path/1.png', ['mimetype' => 'image/png']);
+```
+

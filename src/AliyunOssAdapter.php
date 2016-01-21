@@ -10,6 +10,12 @@ use League\Flysystem\Adapter\AbstractAdapter;
 use League\Flysystem\Adapter\Polyfill\StreamedTrait;
 use League\Flysystem\Adapter\Polyfill\NotSupportingVisibilityTrait;
 
+/**
+ * Aliyun Oss Adapter class
+ *
+ * @author  ApolloPY <ApolloPY@Gmail.com>
+ * @package ApolloPY\Flysystem\AliyunOss
+ */
 class AliyunOssAdapter extends AbstractAdapter
 {
     use StreamedTrait;
@@ -37,7 +43,10 @@ class AliyunOssAdapter extends AbstractAdapter
     /**
      * @var array
      */
-    protected static $metaOptions = [];
+    protected static $mappingOptions = [
+        'mimetype' => OssClient::OSS_CONTENT_TYPE,
+        'size'     => OssClient::OSS_LENGTH,
+    ];
 
     /**
      * Constructor.
@@ -76,6 +85,38 @@ class AliyunOssAdapter extends AbstractAdapter
     }
 
     /**
+     * Write using a local file path.
+     *
+     * @param string $path
+     * @param string $localFilePath
+     * @param Config $config Config object
+     * @return array|false false on failure file meta data on success
+     */
+    public function putFile($path, $localFilePath, Config $config)
+    {
+        $object = $this->applyPathPrefix($path);
+        $options = $this->getOptionsFromConfig($config);
+
+        $options[OssClient::OSS_CHECK_MD5] = true;
+
+        if (!isset($options[OssClient::OSS_CONTENT_TYPE])) {
+            $options[OssClient::OSS_CONTENT_TYPE] = Util::guessMimeType($path, '');
+        }
+
+        try {
+            $this->client->uploadFile($this->bucket, $object, $localFilePath, $options);
+        } catch (OssException $e) {
+            return false;
+        }
+
+        $type = 'file';
+        $result = compact('type', 'path');
+        $result['mimetype'] = $options[OssClient::OSS_CONTENT_TYPE];
+
+        return $result;
+    }
+
+    /**
      * Write a new file.
      *
      * @param string $path
@@ -89,11 +130,11 @@ class AliyunOssAdapter extends AbstractAdapter
         $options = $this->getOptionsFromConfig($config);
 
         if (!isset($options[OssClient::OSS_LENGTH])) {
-            $options[OssClient::OSS_LENGTH] = $size = Util::contentSize($contents);
+            $options[OssClient::OSS_LENGTH] = Util::contentSize($contents);
         }
 
         if (!isset($options[OssClient::OSS_CONTENT_TYPE])) {
-            $options[OssClient::OSS_CONTENT_TYPE] = $mimetype = Util::guessMimeType($path, $contents);
+            $options[OssClient::OSS_CONTENT_TYPE] = Util::guessMimeType($path, $contents);
         }
 
         try {
@@ -103,7 +144,9 @@ class AliyunOssAdapter extends AbstractAdapter
         }
 
         $type = 'file';
-        $result = compact('type', 'path', 'contents', 'mimetype', 'size');
+        $result = compact('type', 'path', 'contents');
+        $result['mimetype'] = $options[OssClient::OSS_CONTENT_TYPE];
+        $result['size'] = $options[OssClient::OSS_LENGTH];
 
         return $result;
     }
@@ -394,11 +437,11 @@ class AliyunOssAdapter extends AbstractAdapter
     protected function getOptionsFromConfig(Config $config)
     {
         $options = $this->options;
-        foreach (static::$metaOptions as $option) {
+        foreach (static::$mappingOptions as $option => $ossOption) {
             if (!$config->has($option)) {
                 continue;
             }
-            $options[$option] = $config->get($option);
+            $options[$ossOption] = $config->get($option);
         }
         return $options;
     }

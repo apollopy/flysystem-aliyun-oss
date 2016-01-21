@@ -5,6 +5,7 @@ namespace ApolloPY\Flysystem\AliyunOss\Tests;
 use OSS\OssClient;
 use PHPUnit_Framework_TestCase;
 use League\Flysystem\Filesystem;
+use ApolloPY\Flysystem\AliyunOss\Plugins\PutFile;
 use ApolloPY\Flysystem\AliyunOss\AliyunOssAdapter;
 use League\Flysystem\Adapter\Local as LocalAdapter;
 
@@ -33,7 +34,22 @@ class AliyunOssAdapterTest extends PHPUnit_Framework_TestCase
         $adapter->deleteDir('test');
         $adapter->setPathPrefix('test');
 
-        $this->filesystem = new Filesystem($adapter);
+        $filesystem = new Filesystem($adapter);
+        $filesystem->addPlugin(new PutFile());
+
+        $this->filesystem = $filesystem;
+    }
+
+    public function testPutFile()
+    {
+        $tmpfile = tempnam(sys_get_temp_dir(), 'OSS');
+        file_put_contents($tmpfile, 'put file');
+
+        $this->assertTrue($this->filesystem->putFile('1.txt', $tmpfile));
+        $this->assertSame('put file', $this->filesystem->read('1.txt'));
+
+        unlink($tmpfile);
+        $this->filesystem->delete('1.txt');
     }
 
     /**

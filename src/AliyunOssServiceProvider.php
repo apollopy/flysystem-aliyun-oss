@@ -6,7 +6,14 @@ use Storage;
 use OSS\OssClient;
 use League\Flysystem\Filesystem;
 use Illuminate\Support\ServiceProvider;
+use ApolloPY\Flysystem\AliyunOss\Plugins\PutFile;
 
+/**
+ * Aliyun Oss ServiceProvider class
+ *
+ * @author  ApolloPY <ApolloPY@Gmail.com>
+ * @package ApolloPY\Flysystem\AliyunOss
+ */
 class AliyunOssServiceProvider extends ServiceProvider
 {
     /**
@@ -25,7 +32,10 @@ class AliyunOssServiceProvider extends ServiceProvider
             $client = new OssClient($accessId, $accessKey, $endPoint);
             $adapter = new AliyunOssAdapter($client, $bucket);
 
-            return new Filesystem($adapter);
+            $filesystem = new Filesystem($adapter);
+            $filesystem->addPlugin(new PutFile());
+
+            return $filesystem;
         });
     }
 
