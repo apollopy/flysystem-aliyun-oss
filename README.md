@@ -53,3 +53,14 @@ see [Laravel wiki](https://laravel.com/docs/5.1/filesystem)
 Storage::disk('oss')->putFile($path, '/local_file_path/1.png', ['mimetype' => 'image/png']);
 ```
 
+## IDE Helper
+
+if installed barryvdh/laravel-ide-helper
+
+edit the config file: config/ide-helper.php
+
+```php
+'interfaces'      => [
+    '\Illuminate\Contracts\Filesystem\Filesystem' => ApolloPY\Flysystem\AliyunOss\FilesystemAdapter::class,
+],
+```
