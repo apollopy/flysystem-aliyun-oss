@@ -429,6 +429,19 @@ class AliyunOssAdapter extends AbstractAdapter
     }
 
     /**
+     * Get the private download url of a file.
+     *
+     * @param string $path
+     * @param int    $expires
+     * @return string
+     */
+    public function getPrivateDownloadUrl($path, $expires = 3600)
+    {
+        $object = $this->applyPathPrefix($path);
+        return $this->client->signUrl($this->bucket, $object, $expires);
+    }
+
+    /**
      * Get options from the config.
      *
      * @param Config $config

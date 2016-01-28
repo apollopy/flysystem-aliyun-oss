@@ -6,7 +6,7 @@ namespace ApolloPY\Flysystem\AliyunOss {
     class FilesystemAdapter extends \Illuminate\Filesystem\FilesystemAdapter
     {
         /**
-         * Handle
+         * Write using a local file path.
          *
          * @param string $path
          * @param string $localFilePath
@@ -16,6 +16,18 @@ namespace ApolloPY\Flysystem\AliyunOss {
         public function putFile($path, $localFilePath, array $config = [])
         {
             return Plugins\PutFile::handle($path, $localFilePath, $config);
+        }
+
+        /**
+         * Get the private download url of a file.
+         *
+         * @param     $path
+         * @param int $expires
+         * @return false|string
+         */
+        public function privateDownloadUrl($path, $expires = 3600)
+        {
+            return Plugins\PrivateDownloadUrl::handle($path, $expires);
         }
     }
 }

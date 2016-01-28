@@ -2,8 +2,8 @@
 
 namespace ApolloPY\Flysystem\AliyunOss\Plugins;
 
-use League\Flysystem\Plugin\AbstractPlugin;
 use League\Flysystem\Config;
+use League\Flysystem\Plugin\AbstractPlugin;
 
 /**
  * PutFile class
