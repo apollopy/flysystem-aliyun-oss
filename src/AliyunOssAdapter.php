@@ -445,7 +445,7 @@ class AliyunOssAdapter extends AbstractAdapter
         if (!empty($host_name) || $use_ssl) {
             $parse_url = parse_url($url);
             if (!empty($host_name)) {
-                $parse_url['host'] = $host_name;
+                $parse_url['host'] = $this->bucket . '.' . $host_name;
             }
             if ($use_ssl) {
                 $parse_url['scheme'] = 'https';
