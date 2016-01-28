@@ -19,15 +19,17 @@ namespace ApolloPY\Flysystem\AliyunOss {
         }
 
         /**
-         * Get the private download url of a file.
+         * Get the signed download url of a file.
          *
-         * @param     $path
-         * @param int $expires
-         * @return false|string
+         * @param string $path
+         * @param int    $expires
+         * @param string $host_name
+         * @param bool   $use_ssl
+         * @return string|false
          */
-        public function privateDownloadUrl($path, $expires = 3600)
+        public function signedDownloadUrl($path, $expires = 3600, $host_name = '', $use_ssl = false)
         {
-            return Plugins\PrivateDownloadUrl::handle($path, $expires);
+            return Plugins\SignedDownloadUrl::handle($path, $expires, $host_name, $use_ssl);
         }
     }
 }

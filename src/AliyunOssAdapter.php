@@ -429,16 +429,41 @@ class AliyunOssAdapter extends AbstractAdapter
     }
 
     /**
-     * Get the private download url of a file.
+     * Get the signed download url of a file.
      *
      * @param string $path
      * @param int    $expires
+     * @param string $host_name
+     * @param bool   $use_ssl
      * @return string
      */
-    public function getPrivateDownloadUrl($path, $expires = 3600)
+    public function getSignedDownloadUrl($path, $expires = 3600, $host_name = '', $use_ssl = false)
     {
         $object = $this->applyPathPrefix($path);
-        return $this->client->signUrl($this->bucket, $object, $expires);
+        $url = $this->client->signUrl($this->bucket, $object, $expires);
+
+        if (!empty($host_name) || $use_ssl) {
+            $parse_url = parse_url($url);
+            if (!empty($host_name)) {
+                $parse_url['host'] = $host_name;
+            }
+            if ($use_ssl) {
+                $parse_url['scheme'] = 'https';
+            }
+
+            $url = (isset($parse_url['scheme']) ? $parse_url['scheme'] . '://' : '')
+                   . (
+                   isset($parse_url['user']) ?
+                       $parse_url['user'] . (isset($parse_url['pass']) ? ':' . $parse_url['pass'] : '') . '@'
+                       : ''
+                   )
+                   . (isset($parse_url['host']) ? $parse_url['host'] : '')
+                   . (isset($parse_url['port']) ? ':' . $parse_url['port'] : '')
+                   . (isset($parse_url['path']) ? $parse_url['path'] : '')
+                   . (isset($parse_url['query']) ? '?' . $parse_url['query'] : '');
+        }
+
+        return $url;
     }
 
     /**

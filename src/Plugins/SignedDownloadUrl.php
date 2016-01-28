@@ -11,7 +11,7 @@ use League\Flysystem\Plugin\AbstractPlugin;
  * @author  ApolloPY <ApolloPY@Gmail.com>
  * @package ApolloPY\Flysystem\AliyunOss\Plugins
  */
-class PrivateDownloadUrl extends AbstractPlugin
+class SignedDownloadUrl extends AbstractPlugin
 {
     /**
      * Get the method name.
@@ -20,7 +20,7 @@ class PrivateDownloadUrl extends AbstractPlugin
      */
     public function getMethod()
     {
-        return 'privateDownloadUrl';
+        return 'signedDownloadUrl';
     }
 
     /**
@@ -28,18 +28,20 @@ class PrivateDownloadUrl extends AbstractPlugin
      *
      * @param string $path
      * @param int    $expires
+     * @param string $host_name
+     * @param bool   $use_ssl
      * @return string|false
      */
-    public function handle($path, $expires = 3600)
+    public function handle($path, $expires = 3600, $host_name = '', $use_ssl = false)
     {
         if (!method_exists($this->filesystem, 'getAdapter')) {
             return false;
         }
 
-        if (!method_exists($this->filesystem->getAdapter(), 'getPrivateDownloadUrl')) {
+        if (!method_exists($this->filesystem->getAdapter(), 'getSignedDownloadUrl')) {
             return false;
         }
 
-        return $this->filesystem->getAdapter()->getPrivateDownloadUrl($path, $expires);
+        return $this->filesystem->getAdapter()->getSignedDownloadUrl($path, $expires, $host_name, $use_ssl);
     }
 }
