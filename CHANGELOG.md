@@ -2,7 +2,7 @@
 
 ## 1.1.2
 
-* Plugin/PrivateDownloadUrl 改为 Plugin/SignedDownloadUrl, 获得带签名且有过期时间的下载地址, 支持自定义 hostname 和是否使用 ssl (使用场景: 远程配置上传地址为内网, 但需要获得外网的临时下载地址提供给用户)
+* Plugin/PrivateDownloadUrl 改为 Plugin/SignedDownloadUrl, 获得带签名且有过期时间的下载地址, 支持自定义 hostname 和选择是否使用 ssl (使用场景: 远程配置上传地址为内网, 但需要获得外网的临时下载地址提供给用户)
 
 ## 1.1.1
 
