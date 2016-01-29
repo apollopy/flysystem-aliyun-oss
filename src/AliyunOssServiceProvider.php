@@ -30,8 +30,13 @@ class AliyunOssServiceProvider extends ServiceProvider
             $endPoint = $config['endpoint'];
             $bucket = $config['bucket'];
 
+            $prefix = null;
+            if (isset($config['prefix'])) {
+                $prefix = $config['prefix'];
+            }
+
             $client = new OssClient($accessId, $accessKey, $endPoint);
-            $adapter = new AliyunOssAdapter($client, $bucket);
+            $adapter = new AliyunOssAdapter($client, $bucket, $prefix);
 
             $filesystem = new Filesystem($adapter);
             $filesystem->addPlugin(new PutFile());
