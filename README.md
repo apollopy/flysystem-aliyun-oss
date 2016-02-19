@@ -59,7 +59,7 @@ Storage::disk('oss')->signedDownloadUrl($path, 3600);
 
 ## IDE Helper
 
-if installed barryvdh/laravel-ide-helper
+if installed [barryvdh/laravel-ide-helper](https://github.com/barryvdh/laravel-ide-helper)
 
 edit the config file: config/ide-helper.php
 
