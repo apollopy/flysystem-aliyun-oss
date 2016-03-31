@@ -105,5 +105,5 @@ whitespace_after_comma_in_array
 
 return Symfony\CS\Config\Config::create()
     ->level(Symfony\CS\FixerInterface::PSR2_LEVEL)
-    ->fixers(explode("\n", $fixers))
+    ->fixers(array_values(array_filter(explode("\n", $fixers))))
     ->finder($finder);
