@@ -7,7 +7,6 @@ use PHPUnit_Framework_TestCase;
 use League\Flysystem\Filesystem;
 use ApolloPY\Flysystem\AliyunOss\Plugins\PutFile;
 use ApolloPY\Flysystem\AliyunOss\AliyunOssAdapter;
-use League\Flysystem\Adapter\Local as LocalAdapter;
 
 class AliyunOssAdapterTest extends PHPUnit_Framework_TestCase
 {
@@ -16,11 +15,11 @@ class AliyunOssAdapterTest extends PHPUnit_Framework_TestCase
      */
     protected $filesystem;
 
-    public function __construct($name = null, array $data = array(), $dataName = '')
+    public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
 
-        /**
+        /*
          * TODO 测试依赖
          */
         $accessId = 'you access id';
@@ -53,7 +52,7 @@ class AliyunOssAdapterTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * 1.txt
+     * 1.txt.
      */
     public function testWrite()
     {
@@ -62,7 +61,7 @@ class AliyunOssAdapterTest extends PHPUnit_Framework_TestCase
 
     /**
      * 1.txt
-     * 2.txt
+     * 2.txt.
      */
     public function testWriteStream()
     {
@@ -77,7 +76,7 @@ class AliyunOssAdapterTest extends PHPUnit_Framework_TestCase
 
     /**
      * 1.txt
-     * 2.txt
+     * 2.txt.
      */
     public function testUpdate()
     {
@@ -86,7 +85,7 @@ class AliyunOssAdapterTest extends PHPUnit_Framework_TestCase
 
     /**
      * 1.txt
-     * 2.txt
+     * 2.txt.
      */
     public function testUpdateStream()
     {
@@ -108,7 +107,7 @@ class AliyunOssAdapterTest extends PHPUnit_Framework_TestCase
     /**
      * 1.txt
      * 2.txt
-     * 3.txt
+     * 3.txt.
      */
     public function testCopy()
     {
@@ -118,7 +117,7 @@ class AliyunOssAdapterTest extends PHPUnit_Framework_TestCase
 
     /**
      * 1.txt
-     * 2.txt
+     * 2.txt.
      */
     public function testDelete()
     {
@@ -128,7 +127,7 @@ class AliyunOssAdapterTest extends PHPUnit_Framework_TestCase
 
     /**
      * 3.txt
-     * 2.txt
+     * 2.txt.
      */
     public function testRename()
     {
@@ -140,7 +139,7 @@ class AliyunOssAdapterTest extends PHPUnit_Framework_TestCase
     /**
      * 3.txt
      * 2.txt
-     * test/1.txt
+     * test/1.txt.
      */
     public function testCreateDir()
     {
@@ -195,7 +194,7 @@ class AliyunOssAdapterTest extends PHPUnit_Framework_TestCase
 
     /**
      * 3.txt
-     * 2.txt
+     * 2.txt.
      */
     public function testDeleteDir()
     {

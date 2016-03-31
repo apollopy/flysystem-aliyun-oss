@@ -11,10 +11,9 @@ use League\Flysystem\Adapter\Polyfill\StreamedTrait;
 use League\Flysystem\Adapter\Polyfill\NotSupportingVisibilityTrait;
 
 /**
- * Aliyun Oss Adapter class
+ * Aliyun Oss Adapter class.
  *
  * @author  ApolloPY <ApolloPY@Gmail.com>
- * @package ApolloPY\Flysystem\AliyunOss
  */
 class AliyunOssAdapter extends AbstractAdapter
 {
@@ -22,14 +21,14 @@ class AliyunOssAdapter extends AbstractAdapter
     use NotSupportingVisibilityTrait;
 
     /**
-     * Aliyun Oss Client
+     * Aliyun Oss Client.
      *
      * @var \OSS\OssClient
      */
     protected $client;
 
     /**
-     * bucket name
+     * bucket name.
      *
      * @var string
      */
@@ -99,7 +98,7 @@ class AliyunOssAdapter extends AbstractAdapter
 
         $options[OssClient::OSS_CHECK_MD5] = true;
 
-        if (!isset($options[OssClient::OSS_CONTENT_TYPE])) {
+        if (! isset($options[OssClient::OSS_CONTENT_TYPE])) {
             $options[OssClient::OSS_CONTENT_TYPE] = Util::guessMimeType($path, '');
         }
 
@@ -129,11 +128,11 @@ class AliyunOssAdapter extends AbstractAdapter
         $object = $this->applyPathPrefix($path);
         $options = $this->getOptionsFromConfig($config);
 
-        if (!isset($options[OssClient::OSS_LENGTH])) {
+        if (! isset($options[OssClient::OSS_LENGTH])) {
             $options[OssClient::OSS_LENGTH] = Util::contentSize($contents);
         }
 
-        if (!isset($options[OssClient::OSS_CONTENT_TYPE])) {
+        if (! isset($options[OssClient::OSS_CONTENT_TYPE])) {
             $options[OssClient::OSS_CONTENT_TYPE] = Util::guessMimeType($path, $contents);
         }
 
@@ -173,9 +172,10 @@ class AliyunOssAdapter extends AbstractAdapter
      */
     public function rename($path, $newpath)
     {
-        if (!$this->copy($path, $newpath)) {
+        if (! $this->copy($path, $newpath)) {
             return false;
         }
+
         return $this->delete($path);
     }
 
@@ -234,7 +234,7 @@ class AliyunOssAdapter extends AbstractAdapter
             if ($val['type'] === 'file') {
                 $objects[] = $this->applyPathPrefix($val['path']);
             } else {
-                $objects[] = $this->applyPathPrefix($val['path']) . '/';
+                $objects[] = $this->applyPathPrefix($val['path']).'/';
             }
         }
 
@@ -442,25 +442,25 @@ class AliyunOssAdapter extends AbstractAdapter
         $object = $this->applyPathPrefix($path);
         $url = $this->client->signUrl($this->bucket, $object, $expires);
 
-        if (!empty($host_name) || $use_ssl) {
+        if (! empty($host_name) || $use_ssl) {
             $parse_url = parse_url($url);
-            if (!empty($host_name)) {
-                $parse_url['host'] = $this->bucket . '.' . $host_name;
+            if (! empty($host_name)) {
+                $parse_url['host'] = $this->bucket.'.'.$host_name;
             }
             if ($use_ssl) {
                 $parse_url['scheme'] = 'https';
             }
 
-            $url = (isset($parse_url['scheme']) ? $parse_url['scheme'] . '://' : '')
-                   . (
+            $url = (isset($parse_url['scheme']) ? $parse_url['scheme'].'://' : '')
+                   .(
                    isset($parse_url['user']) ?
-                       $parse_url['user'] . (isset($parse_url['pass']) ? ':' . $parse_url['pass'] : '') . '@'
+                       $parse_url['user'].(isset($parse_url['pass']) ? ':'.$parse_url['pass'] : '').'@'
                        : ''
                    )
-                   . (isset($parse_url['host']) ? $parse_url['host'] : '')
-                   . (isset($parse_url['port']) ? ':' . $parse_url['port'] : '')
-                   . (isset($parse_url['path']) ? $parse_url['path'] : '')
-                   . (isset($parse_url['query']) ? '?' . $parse_url['query'] : '');
+                   .(isset($parse_url['host']) ? $parse_url['host'] : '')
+                   .(isset($parse_url['port']) ? ':'.$parse_url['port'] : '')
+                   .(isset($parse_url['path']) ? $parse_url['path'] : '')
+                   .(isset($parse_url['query']) ? '?'.$parse_url['query'] : '');
         }
 
         return $url;
@@ -476,11 +476,12 @@ class AliyunOssAdapter extends AbstractAdapter
     {
         $options = $this->options;
         foreach (static::$mappingOptions as $option => $ossOption) {
-            if (!$config->has($option)) {
+            if (! $config->has($option)) {
                 continue;
             }
             $options[$ossOption] = $config->get($option);
         }
+
         return $options;
     }
 }

@@ -9,7 +9,6 @@ use League\Flysystem\Plugin\AbstractPlugin;
  * 获取私有下载地址
  *
  * @author  ApolloPY <ApolloPY@Gmail.com>
- * @package ApolloPY\Flysystem\AliyunOss\Plugins
  */
 class SignedDownloadUrl extends AbstractPlugin
 {
@@ -24,7 +23,7 @@ class SignedDownloadUrl extends AbstractPlugin
     }
 
     /**
-     * Handle
+     * Handle.
      *
      * @param string $path
      * @param int    $expires
@@ -34,11 +33,11 @@ class SignedDownloadUrl extends AbstractPlugin
      */
     public function handle($path, $expires = 3600, $host_name = '', $use_ssl = false)
     {
-        if (!method_exists($this->filesystem, 'getAdapter')) {
+        if (! method_exists($this->filesystem, 'getAdapter')) {
             return false;
         }
 
-        if (!method_exists($this->filesystem->getAdapter(), 'getSignedDownloadUrl')) {
+        if (! method_exists($this->filesystem->getAdapter(), 'getSignedDownloadUrl')) {
             return false;
         }
 
