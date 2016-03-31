@@ -7,10 +7,9 @@ use League\Flysystem\Plugin\AbstractPlugin;
 
 /**
  * PutFile class
- * 上传本地文件
+ * 上传本地文件.
  *
  * @author  ApolloPY <ApolloPY@Gmail.com>
- * @package ApolloPY\Flysystem\AliyunOss\Plugins
  */
 class PutFile extends AbstractPlugin
 {
@@ -25,7 +24,7 @@ class PutFile extends AbstractPlugin
     }
 
     /**
-     * Handle
+     * Handle.
      *
      * @param string $path
      * @param string $localFilePath
@@ -34,11 +33,11 @@ class PutFile extends AbstractPlugin
      */
     public function handle($path, $localFilePath, array $config = [])
     {
-        if (!method_exists($this->filesystem, 'getAdapter')) {
+        if (! method_exists($this->filesystem, 'getAdapter')) {
             return false;
         }
 
-        if (!method_exists($this->filesystem->getAdapter(), 'putFile')) {
+        if (! method_exists($this->filesystem->getAdapter(), 'putFile')) {
             return false;
         }
 
@@ -47,6 +46,6 @@ class PutFile extends AbstractPlugin
             $config->setFallback($this->filesystem->getConfig());
         }
 
-        return (bool)$this->filesystem->getAdapter()->putFile($path, $localFilePath, $config);
+        return (bool) $this->filesystem->getAdapter()->putFile($path, $localFilePath, $config);
     }
 }

@@ -10,10 +10,9 @@ use ApolloPY\Flysystem\AliyunOss\Plugins\PutFile;
 use ApolloPY\Flysystem\AliyunOss\Plugins\SignedDownloadUrl;
 
 /**
- * Aliyun Oss ServiceProvider class
+ * Aliyun Oss ServiceProvider class.
  *
  * @author  ApolloPY <ApolloPY@Gmail.com>
- * @package ApolloPY\Flysystem\AliyunOss
  */
 class AliyunOssServiceProvider extends ServiceProvider
 {
