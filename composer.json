@@ -11,7 +11,7 @@
   "require": {
     "php": ">=5.5.9",
     "league/flysystem": "~1.0",
-    "aliyuncs/oss-sdk-php": "~2.0.4"
+    "aliyuncs/oss-sdk-php": "~2.2.1"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0"
