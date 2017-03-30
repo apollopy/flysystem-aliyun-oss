@@ -1,6 +1,6 @@
 # Flysystem Adapter for Aliyun OSS.
 
-This is a Flysystem adapter for the Aliyun OSS ~2.0.4
+This is a Flysystem adapter for the Aliyun OSS ~2.2.1
 
 inspire by [aobozhang/aliyun-oss-adapter](https://github.com/aobozhang/aliyun-oss-adapter)
 

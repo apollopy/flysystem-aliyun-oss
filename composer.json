@@ -1,6 +1,6 @@
 {
   "name": "apollopy/flysystem-aliyun-oss",
-  "description": "This is a Flysystem adapter for the Aliyun OSS ~2.0.4",
+  "description": "This is a Flysystem adapter for the Aliyun OSS ~2.2.1",
   "license": "MIT",
   "authors": [
     {
