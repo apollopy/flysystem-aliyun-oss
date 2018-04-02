@@ -45,6 +45,7 @@ class AliyunOssAdapter extends AbstractAdapter
     protected static $mappingOptions = [
         'mimetype' => OssClient::OSS_CONTENT_TYPE,
         'size'     => OssClient::OSS_LENGTH,
+        'filename' => OssClient::OSS_CONTENT_DISPOSTION,
     ];
 
     /**
