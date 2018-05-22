@@ -140,7 +140,7 @@ class AliyunOssAdapter extends AbstractAdapter
         try {
             $this->client->putObject($this->bucket, $object, $contents, $options);
         } catch (OssException $e) {
-            return false;
+            return $e;
         }
 
         $type = 'file';
