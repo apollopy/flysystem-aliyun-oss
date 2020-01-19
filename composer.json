@@ -1,6 +1,6 @@
 {
   "name": "apollopy/flysystem-aliyun-oss",
-  "description": "This is a Flysystem adapter for the Aliyun OSS ~2.2.1",
+  "description": "This is a Flysystem adapter for the Aliyun OSS ~2.3",
   "license": "MIT",
   "authors": [
     {
@@ -11,7 +11,7 @@
   "require": {
     "php": ">=5.5.9",
     "league/flysystem": "~1.0",
-    "aliyuncs/oss-sdk-php": "~2.2.1"
+    "aliyuncs/oss-sdk-php": "~2.3"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.0"
